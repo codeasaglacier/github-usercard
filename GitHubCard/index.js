@@ -35,9 +35,14 @@ axios.get('https://api.github.com/users/codeasaglacier')
           user, and adding that card to the DOM.
 */
 
-const followersArray = ['https://api.github.com/users/keirankozlowski', 'https://api.github.com/users/LadyKerr', 'https://api.github.com/users/vishalicious213', 'https://api.github.com/users/antattackbam', 'https://api.github.com/users/cjstryker'];
+// const followersArray = ['https://api.github.com/users/keirankozlowski', 'https://api.github.com/users/LadyKerr', 'https://api.github.com/users/vishalicious213', 'https://api.github.com/users/antattackbam', 'https://api.github.com/users/cjstryker'];
 
-followersArray.forEach( (user) => {
+const newFollowersArray = ['HeyMichelle', 'rachellsincere', 'tlewandowski18', 'CJStryker', 'candaceyw', 'sophiasagan', 'dvwhite', 'fuston05', 'Cberumen51', 'VictorSDelpiu', 'fnumilat', 'DaniWinston25', 'RobertRamosJr', ' micahluedtke']
+
+const newArray = newFollowersArray.map(i => `https://api.github.com/users/${i}`)
+// console.log(newArray)
+
+newArray.forEach( (user) => {
   axios
     .get(user)
     .then(response => {
