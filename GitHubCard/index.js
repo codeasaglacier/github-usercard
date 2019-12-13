@@ -5,7 +5,8 @@
            https://api.github.com/users/<your name>
 */
 var userInfo = {}
-axios.get('https://api.github.com/users/codeasaglacier')
+axios
+  .get('https://api.github.com/users/codeasaglacier')
   .then(response => {
   // console.log(response.data)
   console.log(createCard(response.data))
@@ -13,6 +14,28 @@ axios.get('https://api.github.com/users/codeasaglacier')
   .catch(error => {
     console.error(error)
   })
+
+ axios
+  .get("https://api.github.com/users/codeasaglacier/followers")
+  .then(response => {
+    // console.log('Followers response: ', response.data)
+    const responseData = response.data
+    // console.log(responseData)
+    responseData.forEach(user => {
+      axios
+        .get(`https://api.github.com/users/${user.login}`)
+        .then(response => {
+          createCard(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    })
+  })
+.catch(error => {
+  console.error(error)
+})
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -37,22 +60,22 @@ axios.get('https://api.github.com/users/codeasaglacier')
 
 // const followersArray = ['https://api.github.com/users/keirankozlowski', 'https://api.github.com/users/LadyKerr', 'https://api.github.com/users/vishalicious213', 'https://api.github.com/users/antattackbam', 'https://api.github.com/users/cjstryker'];
 
-const newFollowersArray = ['HeyMichelle', 'rachellsincere', 'tlewandowski18', 'CJStryker', 'candaceyw', 'sophiasagan', 'dvwhite', 'fuston05', 'Cberumen51', 'VictorSDelpiu', 'fnumilat', 'DaniWinston25', 'RobertRamosJr', ' micahluedtke']
+// const newFollowersArray = ['HeyMichelle', 'rachellsincere', 'tlewandowski18', 'CJStryker', 'candaceyw', 'sophiasagan', 'dvwhite', 'fuston05', 'Cberumen51', 'VictorSDelpiu', 'fnumilat', 'DaniWinston25', 'RobertRamosJr', ' micahluedtke']
 
-const newArray = newFollowersArray.map(i => `https://api.github.com/users/${i}`)
-// console.log(newArray)
+// const newArray = newFollowersArray.map(i => `https://api.github.com/users/${i}`)
+// // console.log(newArray)
 
-newArray.forEach( (user) => {
-  axios
-    .get(user)
-    .then(response => {
+// newArray.forEach( (user) => {
+//   axios
+//     .get(user)
+//     .then(response => {
       
-      console.log(createCard(response.data))
-      })
-      .catch(error => {
-        console.error(error)
-      })
-})
+//       console.log(createCard(response.data))
+//       })
+//       .catch(error => {
+//         console.error(error)
+//       })
+// })
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
